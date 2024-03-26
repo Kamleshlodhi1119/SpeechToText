@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Signature Generator</title>
+    <link rel="stylesheet" href="./Notify/Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-xnyekFZAFabgMKsCGYgvNbDovMXJFTXKq0MW2rltENAGc2O7Ez65zW5uBcFPLX3XWOOjMk1FqX5eANOrfVnQGw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* styles.css */
+
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+        }
+
+        .signature-box {
+            margin: 20px auto;
+        }
+
+        canvas {
+            border: 2px solid #000;
+            cursor: crosshair;
+        }
+
+        .speech-to-text {
+            margin-bottom: 20px;
+        }
+
+        /* Media Queries */
+        @media only screen and (max-width: 768px) {
+            header {
+                text-align: center;
+            }
+
+            nav ul {
+                display: block;
+                text-align: center;
+            }
+
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Digital Signature Generator</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#" class="buttons">Home</a></li>
+            <li><a href="#" class="buttons">About</a></li>
+            <li><a href="#" class="buttons">Contact</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="hero">
+            <h1>Speech to text Converter</h1>
+            <textarea id="output" rows="12" cols="80"></textarea><br>
+            <button id="start-btn" class="buttons">Start</button>
+            <button id="stop-btn" class="buttons">Stop</button>
+            <button id="copyButton" class="buttons"><i class="fas fa-check"></i> Copy Text</button>
+
+        </section>
+    </main>
+    <script>
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = true;
+        recognition.continuous = true;
+
+        document.getElementById("start-btn").onclick = () => recognition.start();
+
+
+        document.getElementById("stop-btn").onclick = () => recognition.stop();
+
+        recognition.onresult = event => {
+            output.value = event.results[event.results.length - 1][0].transcript;
+        }
+        navigator.mediaDevices.getUserMedia({ audio: true });
+
+        document.getElementById("copyButton").onclick = function() {
+    var textarea = document.getElementById("output");
+    textarea.select();
+    document.execCommand("copy");
+    // Change button appearance to include checkmark icon
+    var button = document.getElementById("copyButton");
+    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    // Reset button appearance after 2 seconds
+    setTimeout(function() {
+        button.innerHTML = '<i class="fas fa-check"></i> Copy Text';
+    }, 2000);
+};
+
+    </script>
+    <footer>
+        <p>&copy; 2024 Digital Signature Generator</p>
+    </footer>
+</body>
+
+</html>
